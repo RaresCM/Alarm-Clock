@@ -1,7 +1,6 @@
 #define F_CPU 16000000UL
 #include <avr/io.h>
-#include <util/delay.h>
-#include <stdio.h>
+#include <util/delay.h>
 
 void TWIinit (void) {
     TWBR = 72; //Prescaler(100Khz);
@@ -169,28 +168,57 @@ int main(void){
     amin = ((alarmdigit[2] * 10) + alarmdigit[3]);
     asec = ((alarmdigit[4] * 10) + alarmdigit[5]);
 
-    if (TIFR1 & (1 << TOV1)) { //Turn off blidnking cursor if not used
+    if (TIFR1 & (1 << TOV1)) { //Turn off blinking cursor if not used
         LCDsendcommand(0x0C);
     } else {
         LCDsendcommand(0x0F);
     }
 
-    sprintf(timebuffer, "%02d:%02d:%02d", hour, min, sec);
-    sprintf(datebuffer, "%02d/%02d/%02d", date, month, year);
-    sprintf(alarmtext, "Alarm:");
-    sprintf(alarmtime,"%02d:%02d:%02d", ahour, amin, asec);
+    // Manually format timebuffer
+    timebuffer[0] = (hour / 10) + '0';
+    timebuffer[1] = (hour % 10) + '0';
+    timebuffer[2] = ':';
+    timebuffer[3] = (min / 10) + '0';
+    timebuffer[4] = (min % 10) + '0';
+    timebuffer[5] = ':';
+    timebuffer[6] = (sec / 10) + '0';
+    timebuffer[7] = (sec % 10) + '0';
+    timebuffer[8] = '\0';
+
+    // Manually format datebuffer
+    datebuffer[0] = (date / 10) + '0';
+    datebuffer[1] = (date % 10) + '0';
+    datebuffer[2] = '/';
+    datebuffer[3] = (month / 10) + '0';
+    datebuffer[4] = (month % 10) + '0';
+    datebuffer[5] = '/';
+    datebuffer[6] = (year / 10) + '0';
+    datebuffer[7] = (year % 10) + '0';
+    datebuffer[8] = '\0';
+
+    // Manually format alarmtime
+    alarmtime[0] = (ahour / 10) + '0';
+    alarmtime[1] = (ahour % 10) + '0';
+    alarmtime[2] = ':';
+    alarmtime[3] = (amin / 10) + '0';
+    alarmtime[4] = (amin % 10) + '0';
+    alarmtime[5] = ':';
+    alarmtime[6] = (asec / 10) + '0';
+    alarmtime[7] = (asec % 10) + '0';
+    alarmtime[8] = '\0';
 
     LCDsendcommand((0x80 + 9));
-    LCDsendstring(alarmtext);
+    LCDsendstring("Alarm:"); // Send static string directly
     LCDsendcommand(0x80);
     LCDsendstring(timebuffer);
     LCDsendcommand(0xC0);
     LCDsendstring(datebuffer);
     LCDsendcommand((0xC0 + 8));
     LCDsendstring(alarmtime);
+
     LCDsendcommand(digitselect[editindex]);
 
-    if((ahour == hour) & (amin == min) & (asec == sec)) { //Alarm buzzer on if time matches
+    if((ahour == hour) && (amin == min) && (asec == sec)) { //Alarm buzzer on if time matches
         PORTG |= (1 << PG5);
     }
 
