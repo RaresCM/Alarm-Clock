@@ -21,4 +21,4 @@ This version has no physical way to set the time and date, this must be done onc
 ## Repository Structure
 - /main.c - The main code for the clock to be uploaded to the chip
 - /platformio.ini - PlatformIO settings to be used with VS code and PlatformIO extension
-- /designlog.md
+- /designlog.md - My log of findings, learning and obstacles encountered during the design of the alarm clock
