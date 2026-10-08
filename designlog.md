@@ -3,7 +3,7 @@
 - Allowed me to write my own TWI logic/driver for communcations
 - Taught me how a 16/2 display works using 8 bit data transmission and what controls can be analog vs digital
 - Allowed me to see how to interface and communicate with a simple clock module without the need for WiFi
-- Allowed me to come up with the analog to digital control logic for switches and number conversion from different formats like BCD to decimal for displaying on an LCD and doing mathematical operations with the data
+- Allowed me to come up with the analog to digital control logic for switches and number conversion from different formats like BCD to decimal or ASCII for displaying on an LCD and doing mathematical operations with the data
 
 ## Issues and obstacles 
 - Learning and understanding the flow of TWI was difficult and I settled over 8 bit logic instead of 4 bit nibbles with a low and high byte
