@@ -13,6 +13,7 @@ This project was built to apply concepts from my EEE course as well as module in
 * Custom cursor control for the LCD display to adjust the alarm using analog buttons
 * De-bounce logic and 2 analog potentiometers for contrast and brightness
 * Input for setting an alarm and silencing it physically
+* Brightness and contrast control via analog potentiometers
 
 ## Issue and possible improvement
 
