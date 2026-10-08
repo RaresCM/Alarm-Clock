@@ -1,6 +1,6 @@
 # Alarm-Clock
 
-> **Implementation Note:** Drivers for TWI and the LCD display were written entirely from scratch using ATmega 2560 standard AVR libraries which are also available in my documentation. Direct register manipulation was performed using my own ATmega 2560 memory register map, [linked here](https://github.com/RaresCM/ATMega2560-Custom-Documentation).
+> **Implementation Note:** Drivers for TWI and the LCD display were written entirely from scratch by me using ATmega 2560 standard AVR libraries which are also available in my documentation. Direct register manipulation was performed using my own ATmega 2560 memory register map, [linked here](https://github.com/RaresCM/ATMega2560-Custom-Documentation).
 
 ## Overview
 My custom alarm clock built on a ATmega 2560 development board platform in bare metal C. The build uses a 16/2 LCD, a DS1307 battery powered time module, an active speaker and analog components.
