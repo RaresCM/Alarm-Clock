@@ -1,6 +1,7 @@
 #define F_CPU 16000000UL
 #include <avr/io.h>
-#include <util/delay.h>
+#include <util/delay.h>
+
 
 void TWIinit (void) {
     TWBR = 72; //Prescaler(100Khz);
@@ -174,7 +175,7 @@ int main(void){
         LCDsendcommand(0x0F);
     }
 
-    // Manually format timebuffer
+    //Format timebuffer
     timebuffer[0] = (hour / 10) + '0';
     timebuffer[1] = (hour % 10) + '0';
     timebuffer[2] = ':';
@@ -185,7 +186,7 @@ int main(void){
     timebuffer[7] = (sec % 10) + '0';
     timebuffer[8] = '\0';
 
-    // Manually format datebuffer
+    //Format datebuffer
     datebuffer[0] = (date / 10) + '0';
     datebuffer[1] = (date % 10) + '0';
     datebuffer[2] = '/';
@@ -196,7 +197,7 @@ int main(void){
     datebuffer[7] = (year % 10) + '0';
     datebuffer[8] = '\0';
 
-    // Manually format alarmtime
+    //Format alarmtime
     alarmtime[0] = (ahour / 10) + '0';
     alarmtime[1] = (ahour % 10) + '0';
     alarmtime[2] = ':';
@@ -207,8 +208,9 @@ int main(void){
     alarmtime[7] = (asec % 10) + '0';
     alarmtime[8] = '\0';
 
+    //Send data to LCD post conversion
     LCDsendcommand((0x80 + 9));
-    LCDsendstring("Alarm:"); // Send static string directly
+    LCDsendstring("Alarm:");
     LCDsendcommand(0x80);
     LCDsendstring(timebuffer);
     LCDsendcommand(0xC0);
@@ -222,7 +224,7 @@ int main(void){
         PORTG |= (1 << PG5);
     }
 
-    _delay_ms(500);
+    _delay_ms(150);
 
     }
 
